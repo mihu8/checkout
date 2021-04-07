@@ -17,6 +17,12 @@ func TestAddProductToEmptyInventory(t *testing.T) {
 	}
 
 	if inv.list()[googleHome] != 10 {
-		t.Fatal("There should be 10 google home in stock, got: ", inv.list()[googleHome])
+		t.Fatal("There should be 10 google home in stock, got:", inv.list()[googleHome])
+	}
+
+	// let's clear google home stock
+	inv.update(googleHome, -10)
+	if inv.list()[googleHome] != 0 {
+		t.Fatal("Google Home stock should be 0, got:", inv.list()[googleHome])
 	}
 }
