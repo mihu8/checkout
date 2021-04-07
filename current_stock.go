@@ -23,7 +23,7 @@ var alexaSpeaker = Product{
 
 var raspberryPiB = Product{
 	Id:           3,
-	Sku:          "3000",
+	Sku:          "234234",
 	Name:         "Raspberry Pi B",
 	StickerPrice: 3000,
 }
