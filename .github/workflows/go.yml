@@ -23,3 +23,11 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+      
+    - name: Build binary
+      run: cd main && go build -v ./...  
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: main binary
+        path: main/main
