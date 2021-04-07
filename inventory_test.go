@@ -26,3 +26,10 @@ func TestAddProductToEmptyInventory(t *testing.T) {
 		t.Fatal("Google Home stock should be 0, got:", inv.list()[googleHome])
 	}
 }
+
+func TestStandardStock(t *testing.T) {
+	inv := getStandardInventory()
+	if len(inv.list()) != 4 {
+		t.Fatal("Expect SKU to be 4 for standard inventory environment, got:", len(inv.list()))
+	}
+}

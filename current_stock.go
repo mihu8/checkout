@@ -27,3 +27,12 @@ var raspberryPiB = Product{
 	Name:         "Raspberry Pi B",
 	StickerPrice: 3000,
 }
+
+func getStandardInventory() Inventory {
+	inv := NewDummyInventory()
+	inv.update(googleHome, 10)
+	inv.update(macbookPro, 5)
+	inv.update(alexaSpeaker, 10)
+	inv.update(raspberryPiB, 2)
+	return &inv
+}

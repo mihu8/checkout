@@ -19,7 +19,7 @@ type Product struct {
 type Inventory interface {
 	list() map[Product]Quantity
 
-	update(Product, delta Quantity)
+	update(Product Product, delta Quantity)
 }
 
 type DummyInventory struct {
