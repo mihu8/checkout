@@ -43,8 +43,8 @@ func (inv *DummyInventory) update(Product Product, delta Quantity) {
 	inv.stock[Product] += delta
 }
 
-func NewDummyInventory() DummyInventory {
-	return DummyInventory{
+func NewDummyInventory() *DummyInventory {
+	return &DummyInventory{
 		m:     sync.Mutex{},
 		stock: map[Product]Quantity{},
 	}

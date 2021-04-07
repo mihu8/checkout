@@ -34,5 +34,5 @@ func getStandardInventory() Inventory {
 	inv.update(macbookPro, 5)
 	inv.update(alexaSpeaker, 10)
 	inv.update(raspberryPiB, 2)
-	return &inv
+	return inv
 }
