@@ -2,7 +2,7 @@ package checkout
 
 import "testing"
 
-func testAddProductToEmptyInventory(t * testing.T) {
+func TestAddProductToEmptyInventory(t *testing.T) {
 	inv := NewDummyInventory()
 	if len(inv.list()) > 0 {
 		t.Fatal("initial inventory should be empty")
