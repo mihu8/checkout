@@ -1,10 +1,19 @@
 package checkout
 
+import "fmt"
+
+// LineItem is for product in Cart.
 type LineItem struct {
 	product Product
 
 	// discount is 0 or positive. If it's 5 cents, it means it gives discount of 5c, so actual price would be product.Price - discount
 	discount Cents
+
+	// FIXME: we should aggregate same product together
+}
+
+func (LineItem LineItem) GetActualPrice() Cents {
+	return LineItem.product.StickerPrice - LineItem.discount
 }
 
 type Cart struct {
@@ -15,6 +24,16 @@ type Cart struct {
 
 func NewCart() *Cart {
 	return &Cart{lineItems: nil}
+}
+
+func (c *Cart) ResetPromotion() {
+	var items []LineItem
+	for _, item := range c.lineItems {
+		item.discount = 0
+		items = append(items, item)
+	}
+
+	c.lineItems = items
 }
 
 func (c *Cart) Add(product Product) {
@@ -47,8 +66,18 @@ func (c *Cart) GetTotalPrice() Cents {
 	totalPrice := Cents(0)
 
 	for _, item := range c.lineItems {
-		totalPrice = totalPrice + (item.product.StickerPrice - item.discount)
+		totalPrice = totalPrice + item.GetActualPrice()
 	}
 
 	return totalPrice
+}
+
+func (c *Cart) Dump() string {
+	line := "Cart:\n"
+
+	for idx, item := range c.lineItems {
+		line = line + fmt.Sprintf("%02d. - %s [%s] %dC - %dC\n", idx, item.product.Name, item.product.Sku, item.product.StickerPrice, item.discount)
+	}
+
+	return line
 }
