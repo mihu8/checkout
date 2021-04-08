@@ -5,7 +5,7 @@ import (
 )
 
 type Id int64
-type Cents int64 // FIXME: some currency uses 1/1000 as "cents". And consider there is 10% discount on $9.99 items, we should really use big/decimal instead.
+type Cents int64 // FIXME: some currency systems use 1/1000 as "cents". And consider there is 10% discount on $9.99, we should really use big/decimal instead.
 
 type Quantity int64 // FIXME: in terms of Unit, iPhone is discrete, apples are not (1.1kg)
 
@@ -35,7 +35,7 @@ func (inv *DummyInventory) list() map[Product]Quantity {
 }
 
 func (inv *DummyInventory) update(Product Product, delta Quantity) {
-	// FIXME: we should use atomic operations or lock
+	// FIXME: we should use atomic or lock
 
 	inv.m.Lock()
 	defer inv.m.Unlock()
@@ -50,4 +50,5 @@ func NewDummyInventory() *DummyInventory {
 	}
 }
 
+// ProductBook holds all products
 type ProductBook []Product
