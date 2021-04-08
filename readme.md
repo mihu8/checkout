@@ -22,7 +22,7 @@ This project is extremely open-ended. It's a giant rabbit hole. There are way to
 
 I decided to use GitHub Actions as it does not rely on self-hosted infrastructures for small projects like this. This
 small system should be treated like a library or module, building a binary does not make any sense, but I put a small
-main.go in main/ and output it into Actions artifacts, it's just a demo that I understand what's required...
+`main.go` in `main/` and output it into Actions artifacts, it's just a demo that I understand what's required...
 
 https://github.com/mihu8/checkout/actions
 
