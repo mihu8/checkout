@@ -1,9 +1,5 @@
 package checkout
 
-import (
-	"math"
-)
-
 type Promotion interface {
 	Apply(cart *Cart) error
 }
@@ -22,18 +18,24 @@ func (b PromotionBook) ApplyAll(cart *Cart) error {
 	return nil
 }
 
+// DiscountOneForOne means once an item is in the shopping cart, give discount on target for every condition product purchased.
 type DiscountOneForOne struct {
-	condition   Product
-	target      Product
+	condition Product
+	target    Product
+
+	// maxDiscount stands for the maximum possible discount. If the target product is free, make maxDiscount = target.StickerPrice
 	maxDiscount Cents
 }
 
 type DiscountOnEveryX struct {
-	product     Product
+	product Product
+
+	// give discount on Nth item. e.g. 5 means give discount on the 5th and 10th item.
 	everyN      int
 	maxDiscount Cents
 }
 
+// DiscountTriggerOnQuantity will be activated once the product has reached triggerQuantity. And it applies discount on every products in cart
 type DiscountTriggerOnQuantity struct {
 	product         Product
 	triggerQuantity Quantity // FIXME: this is coupled with line items' quantity
@@ -125,31 +127,4 @@ func (d DiscountOneForOne) Apply(cart *Cart) error {
 	cart.lineItems = lineItems
 
 	return nil
-}
-
-var freeRaspberryPiPromotion Promotion = DiscountOneForOne{
-	condition:   macbookPro,
-	target:      raspberryPiB,
-	maxDiscount: raspberryPiB.StickerPrice,
-}
-
-var googleHomesThreeForTwoPromotion Promotion = DiscountOnEveryX{
-	product:     googleHome,
-	everyN:      2,
-	maxDiscount: googleHome.StickerPrice,
-}
-
-var alexaSpeakerPromotion Promotion = DiscountTriggerOnQuantity{
-	product:         alexaSpeaker,
-	triggerQuantity: 3,
-	maxDiscount:     Cents(math.Floor(0.1 * float64(alexaSpeaker.StickerPrice))),
-}
-
-// GetPromotionBook returns the promotion book based on a set of rules, like the current user, and so on
-func GetPromotionBook() PromotionBook {
-	// dummy implementation
-
-	return PromotionBook{
-		promotions: []Promotion{googleHomesThreeForTwoPromotion, alexaSpeakerPromotion, freeRaspberryPiPromotion},
-	}
 }
