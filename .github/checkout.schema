@@ -1,0 +1,107 @@
+# FIXME: get a proper decimal
+type Decimal{
+	value: Int!
+}
+
+type User{
+	id: ID!
+	identity: String!
+	sessions: [Session!]!
+}
+
+type Session{
+	id: ID!
+	carts: [Cart!]!
+    user: User!
+}
+
+type Cart{
+	id: ID!
+	lineItems: [LineItem!]!
+    version: Int! # starts from 1, monotone increasing
+
+    order: Order # can be null!
+}
+
+type Promotion {
+    id: ID!
+    name: String!
+}
+
+type AppliedPromotions {
+    id: ID!
+    promotion: Promotion!
+    discount: Decimal!
+}
+
+type LineItem{
+	id: ID!
+	product: Product!
+
+    promotions: [AppliedPromotions!]!
+}
+
+type Order{
+    id: ID!
+    lineItems: [LineItem!]!
+
+    cart: Cart!
+}
+
+type Product{
+	id: ID!
+	name: String!
+	valid: Boolean!
+	stickerPrice: Decimal!
+}
+
+# NOTE: !!!we assume authentication and authorization are done!!!
+type Query {
+    me: User!
+    currentSession: Session!
+}
+
+input AddProductToCart {
+    cartId: ID!
+    productId: ID!
+}
+
+input UpdateProductQuantity {
+    cartId: ID!
+    productId: ID!
+    targetQuantity: Int! # FIXME: it can be non-discrete
+}
+
+interface Error {
+    message: String!
+    # and so on
+}
+
+interface CheckoutResult {
+    cart: Cart!
+    successful: Boolean!
+}
+
+type FailedCheckout implements CheckoutResult {
+    cart: Cart!
+    successful: Boolean!
+    error: Error!
+}
+
+type SuccessfulCheckout implements CheckoutResult {
+    cart: Cart!
+    successful: Boolean!
+    order: Order!
+}
+
+input MergeCart {
+    carts: [ID!]!
+}
+
+type Mutation {
+    addProduct(product: AddProductToCart!): Cart!
+    updateProductQuantity(update: UpdateProductQuantity!): CheckoutResult!
+
+    # merge multiple cart into a new one
+    mergeCart(mergeCart: MergeCart!): Cart!
+}
