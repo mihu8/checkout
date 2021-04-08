@@ -45,7 +45,7 @@ func TestFreeRaspberryPiPromotion(t *testing.T) {
 	}
 }
 
-func TestGoogleHomePromosionThreeForTwo(t *testing.T) {
+func TestGoogleHomePromotionThreeForTwo(t *testing.T) {
 	cart := NewCart()
 	cart.Add(googleHome)
 	cart.Add(googleHome)
