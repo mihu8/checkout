@@ -26,7 +26,8 @@ main.go in main/ and output it into Actions artifacts, it's just a demo that I u
 
 # GraphQL schema
 
-`checkout.schema`.
+
+https://github.com/mihu8/checkout/blob/master/checkout.schema
 
 __Note:__ GraphQL's schema does not match the golang code.
 
