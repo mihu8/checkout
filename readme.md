@@ -16,6 +16,7 @@ This project is extremely open-ended. It's a giant rabbit hole. There are way to
 * How to define _Quantity_ - we can buy one iPhone or two, but we can also buy 1.3kg of Apple.
 * "Check Availability / Stock" & "Checkout" should be atomic operation - I would adopt a pessimistic lock with sanity
   check and 5-minutes timeout.
+* concurrency, atomic, rollback etc etc
 * on and on...
 
 # ci/cd
