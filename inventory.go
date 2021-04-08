@@ -5,9 +5,9 @@ import (
 )
 
 type Id int64
-type Cents int64 // FIXME: some currency uses 1/1000 as "cents"
+type Cents int64 // FIXME: some currency uses 1/1000 as "cents". And consider there is 10% discount on $9.99 items, we should really use big/decimal instead.
 
-type Quantity int64 // FIXME: iPhone discrete, apples are not (1.1kg)
+type Quantity int64 // FIXME: in terms of Unit, iPhone is discrete, apples are not (1.1kg)
 
 type Product struct {
 	Id
