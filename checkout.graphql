@@ -37,14 +37,14 @@ type AppliedPromotions {
 type LineItem{
 	id: ID!
 	product: Product!
-
+   
     promotions: [AppliedPromotions!]!
 }
 
 type Order{
     id: ID!
     lineItems: [LineItem!]!
-
+    
     cart: Cart!
 }
 
@@ -55,8 +55,18 @@ type Product{
 	stickerPrice: Decimal!
 }
 
+
+# This is a common service interface. 
+type Service {
+    name: String!
+    version: String!
+    schema: String!
+}
+
 # NOTE: !!!we assume authentication and authorization are done!!!
 type Query {
+    service: Service! 
+
     me: User!
     currentSession: Session!
 }
