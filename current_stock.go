@@ -18,7 +18,7 @@ var alexaSpeaker = Product{
 	Id:           2,
 	Sku:          "A304SD",
 	Name:         "Alexa Speaker",
-	StickerPrice: 4999,
+	StickerPrice: 10950,
 }
 
 var raspberryPiB = Product{
