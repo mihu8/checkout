@@ -36,6 +36,7 @@ func (c *Cart) ResetPromotion() {
 	c.lineItems = items
 }
 
+// Add puts a product into the shopping cart. Note: it will reset all promotion in the cart.
 func (c *Cart) Add(product Product) {
 	lineItem := LineItem{
 		product:  product,
@@ -43,6 +44,8 @@ func (c *Cart) Add(product Product) {
 	}
 
 	c.lineItems = append(c.lineItems, lineItem)
+
+	c.ResetPromotion()
 }
 
 func (c *Cart) IsStockAvailable(inv Inventory) bool {
@@ -76,7 +79,7 @@ func (c *Cart) Dump() string {
 	line := "Cart:\n"
 
 	for idx, item := range c.lineItems {
-		line = line + fmt.Sprintf("%02d. - %s [%s] %dC - %dC\n", idx, item.product.Name, item.product.Sku, item.product.StickerPrice, item.discount)
+		line = line + fmt.Sprintf("%02d. %s [%s] %dC - %dC\n", idx, item.product.Name, item.product.Sku, item.product.StickerPrice, item.discount)
 	}
 
 	return line
