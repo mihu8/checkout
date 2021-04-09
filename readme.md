@@ -30,7 +30,7 @@ https://github.com/mihu8/checkout/actions
 # GraphQL schema
 
 
-https://github.com/mihu8/checkout/blob/master/checkout.schema
+https://github.com/mihu8/checkout/blob/master/checkout.graphql
 
 __Note:__ GraphQL's schema does not match the golang code.
 
